@@ -7,7 +7,7 @@ const serverlessConfiguration: AWS = {
   service: 'service-name',
   frameworkVersion: '4',
   app: 'app-name',
-  plugins: ['serverless-esbuild', 'serverless-dotenv-plugin', 'serverless-prune-plugin', 'serverless-api-gateway-caching'],
+  plugins: ['serverless-dotenv-plugin', 'serverless-prune-plugin', 'serverless-api-gateway-caching'],
   provider: {
     name: 'aws',
     stage: "${opt:stage, 'dev'}",
