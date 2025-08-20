@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "rootDir": "./",
+    "outDir": "lib",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ESNext"],
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "target": "ES2020"
+  },
+  "include": ["src/**/*.ts", "serverless.ts"],
+  "exclude": ["node_modules/**/*", ".serverless/**/*", ".webpack/**/*", "_warmup/**/*", ".vscode/**/*"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}
