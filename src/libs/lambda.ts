@@ -44,12 +44,12 @@ export function createHttpHandler<S>(handler: (event: ValidatedAPIGatewayProxyEv
         data = z.flattenError(error);
       }
       return {
-        statusCode: error.statusCode || 500,
+        statusCode: statusCode,
         headers,
         body: JSON.stringify({
-          code: error.code || 5,
+          code: statusCode,
           msg: error.message,
-          data: error.data || null,
+          data: data,
         }),
       };
     }
