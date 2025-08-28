@@ -1,3 +1,4 @@
+import { test } from '@/functions';
 import type { AWS } from '@serverless/typescript';
 import * as dotenv from 'dotenv';
 
@@ -33,7 +34,7 @@ const serverlessConfiguration: AWS = {
   },
   // import the function via paths
   functions: {
-
+    test,
   },
   resources: {
     Resources: {
@@ -75,16 +76,6 @@ const serverlessConfiguration: AWS = {
     },
     apiGatewayCaching: {
       enabled: true,
-    },
-    esbuild: {
-      bundle: true,
-      minify: false,
-      sourcemap: true,
-      exclude: ['aws-sdk'],
-      target: 'node20',
-      define: { 'require.resolve': undefined },
-      platform: 'node',
-      concurrency: 10,
     },
   },
 };
