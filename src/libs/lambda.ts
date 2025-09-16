@@ -1,9 +1,8 @@
 import middy from '@middy/core';
 import middyJsonBodyParser from '@middy/http-json-body-parser';
 import { APIGatewayProxyResultV2 } from 'aws-lambda';
-import { z } from 'zod'
+import { z } from 'zod';
 import { ValidatedAPIGatewayProxyEvent } from './api-gateway';
-
 
 type HandlerResponse = {
   data?: Record<string, unknown> | any;
@@ -32,7 +31,7 @@ export function createHttpHandler<S>(handler: (event: ValidatedAPIGatewayProxyEv
         }),
       };
     } catch (error: any) {
-      let statusCode = 500;
+      let statusCode = error.statusCode || 500;
       let code = error.code || 5;
       let message = error.message;
       let data = error.data ?? null;
@@ -47,8 +46,8 @@ export function createHttpHandler<S>(handler: (event: ValidatedAPIGatewayProxyEv
         statusCode: statusCode,
         headers,
         body: JSON.stringify({
-          code: statusCode,
-          msg: error.message,
+          code: code,
+          msg: message,
           data: data,
         }),
       };
@@ -56,5 +55,9 @@ export function createHttpHandler<S>(handler: (event: ValidatedAPIGatewayProxyEv
   };
 
   // apply middy middlewares
-  return middy(wrapped).use(middyJsonBodyParser());
+  return middy(wrapped).use(
+    middyJsonBodyParser({
+      disableContentTypeError: true,
+    })
+  );
 }
